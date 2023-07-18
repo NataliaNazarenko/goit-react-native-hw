@@ -1,31 +1,25 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+import 'react-native-gesture-handler';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginScreen from "./Screens/LoginScreen";
+import RegistrationScreen from "./Screens/RegistrationScreen";
+import PostsScreen from "./Screens/PostsScreen";
 
-export default function App() {
-  let [fontsLoaded] = useFonts({
-    Inter_900Black,
-  });
+const MainStack = createStackNavigator();
 
-  if (!fontsLoaded) {
-    return null;
-  }
-
+export default () => {
   return (
-    <View style={styles.container}>
-      <Text style={{ fontFamily: 'Inter_900Black', fontSize: 40 }}>Hello</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MainStack.Navigator initialRouteName="Home">
+        <MainStack.Screen name="Registration" component={RegistrationScreen} />
+        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen
+          name="Posts"
+          component={PostsScreen}
+          options={{ title: "Start screen" }}
+        />
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'bluer',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-});
+};
